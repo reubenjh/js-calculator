@@ -3,17 +3,17 @@ And a number called total;
 
 Add an eventlistener to every button, with a function which says:
 
-val = the text of the button that was pressed. 
+val = the text of the button that was pressed; 
 
-if val is a number or a decimal point, 
-	append to temp
-	and display it in the #answer input
-else if val is AC
+if (val is a number or a decimal point){ 
+	append val to temp;
+	and display it in the #answer input;
+} else if (val is AC) {
 	clear entries
 	clear temp
 	reset total to 0
 	display zero in #answer
-else if val is CE
+} else if val is CE
 	clear temp
 	clear #answer
 else if val is 'x' or '%'
