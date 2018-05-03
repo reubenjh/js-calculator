@@ -1,3 +1,5 @@
+
+```
 Create a table called entries;
 And a number called total;
 
@@ -35,6 +37,6 @@ else if val is '='
 else 
 	push temp (which is an arithemtical operation) to entries
 	push val to entries.
-
+```
 	
 
