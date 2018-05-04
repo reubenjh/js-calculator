@@ -8,7 +8,7 @@ function initCalc() {
     addListenersToNumbers();
     addListenersToFunctions();
     // addListenersToClears();
-    // addListenersToEquals();
+    addListenersToEquals();
 }
 
 function addListenersToNumbers() {
@@ -43,9 +43,33 @@ function addListenersToFunctions() {
 }
 
 function funcClick() {
-    arfunc = event.target.innerHTML;
-    document.getElementById("answer").value = firstNum + ' ' + arfunc;
+
+    if (arfunc == ''){
+        arfunc = event.target.innerHTML;
+        document.getElementById("answer").value = firstNum + ' ' + arfunc;
+        document.getElementById("history").value = firstNum + ' ' + arfunc;
+    } else {
+        document.getElementById("history").value = firstNum + ' ' + arfunc + ' '+ secondNum + '=';
+        firstNum = calculate(firstNum,secondNum, arfunc);
+        document.getElementById("answer").value = firstNum;
+        secondNum = '';
+        arfunc = event.target.innerHTML; //either this line or below, not both
+        //arfunc = '';
+    }
+
 }    
+
+function addListenersToEquals() {
+    document.getElementsByClassName('equals')[0].addEventListener('click',eqClick);
+}
+
+function eqClick(){
+    document.getElementById("history").value = firstNum + ' ' + arfunc + ' '+ secondNum + '=';
+    firstNum = calculate(firstNum,secondNum, arfunc);
+    document.getElementById("answer").value = firstNum;
+    secondNum = '';
+    arfunc = '';
+}
 
 function calculate(firstNum,secondNum, arfunc){
     switch (arfunc) {
