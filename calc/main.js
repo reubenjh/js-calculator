@@ -22,8 +22,15 @@ function addListenersToNumbers() {
 
 function numClick() {
     
-    firstNum += event.target.innerHTML;
-    document.getElementById("answer").value = firstNum;
+    if (arfunc == ''){
+        firstNum += event.target.innerHTML;
+        document.getElementById("answer").value = firstNum;
+    } else {
+        secondNum += event.target.innerHTML;
+        document.getElementById("answer").value = firstNum +' '+arfunc+' '+secondNum;   
+    }
+
+
 }
 
 function addListenersToFunctions() {
