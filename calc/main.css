@@ -1,0 +1,12 @@
+* {
+    /*outline: solid red 1px;*/
+}
+
+.answer-row {
+    height: 75px;
+    padding-bottom: 15px;
+}
+
+input {
+    height: 64px;
+}
