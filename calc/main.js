@@ -47,6 +47,22 @@ function funcClick() {
     document.getElementById("answer").value = firstNum + ' ' + arfunc;
 }    
 
+function calculate(firstNum,secondNum, arfunc){
+    switch (arfunc) {
+        case '+':
+            return Number(firstNum)+Number(secondNum);
+            break;
+        case '-':
+            return Number(firstNum)-Number(secondNum);
+            break;
+        case 'X':
+            return Number(firstNum)*Number(secondNum);
+            break;
+        case '/':
+            return Number(firstNum)/Number(secondNum);
+            break;
+    }
+}
 
 
 
