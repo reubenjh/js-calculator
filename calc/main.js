@@ -27,7 +27,8 @@ function numClick() {
         document.getElementById("answer").value = firstNum;
     } else {
         secondNum += event.target.innerHTML;
-        document.getElementById("answer").value = firstNum +' '+arfunc+' '+secondNum;   
+        document.getElementById("answer").value = firstNum +' '+arfunc+' '+secondNum;
+        document.getElementById('history').value += event.target.innerHTML;
     }
 
 
@@ -49,7 +50,7 @@ function funcClick() {
         document.getElementById("answer").value = firstNum + ' ' + arfunc;
         document.getElementById("history").value = firstNum + ' ' + arfunc;
     } else {
-        document.getElementById("history").value = firstNum + ' ' + arfunc + ' '+ secondNum + '=';
+        document.getElementById("history").value += secondNum + '=';
         firstNum = calculate(firstNum,secondNum, arfunc);
         document.getElementById("answer").value = firstNum;
         secondNum = '';
