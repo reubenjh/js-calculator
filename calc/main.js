@@ -1,5 +1,11 @@
 document.addEventListener('DOMContentLoaded', initCalc)
-
+/*
+    To dos:
+    - get history working correctly.
+    - add clear functionality
+    - pretty CSS styling
+    - secret hidden willem defoe boobies.
+*/
 let firstNum = '';
 let secondNum = '';
 let arfunc = '';
