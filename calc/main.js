@@ -13,7 +13,7 @@ let arfunc = '';
 function initCalc() {
     addListenersToNumbers();
     addListenersToFunctions();
-    // addListenersToClears();
+    addListenersToClears();
     addListenersToEquals();
 }
 
@@ -95,11 +95,26 @@ function calculate(firstNum,secondNum, arfunc){
     }
 }
 
+function addListenersToClears() {
+    document.getElementsByClassName('clear')[0].addEventListener('click', allClearClick);
+    document.getElementsByClassName('clear')[1].addEventListener('click', clearEntryClick);
+}
+
+function allClearClick(){
+    firstNum = '';
+    secondNum = '';
+    arfunc = '';
+    document.getElementById("answer").value = '';
+    document.getElementById("history").value = '';
+
+}
 
 
-
-
-
+function clearEntryClick(){
+    secondNum = '';
+    document.getElementById("answer").value = '';
+    //possibly clear arfunc?
+}
 
 
 
