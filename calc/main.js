@@ -54,21 +54,23 @@ function funcClick() {
     if (arfunc == ''){
         arfunc = event.target.innerHTML;
         //document.getElementById("answer").value = firstNum + ' ' + arfunc;
-        document.getElementById("history").value = firstNum + ' ' + arfunc;
+        //document.getElementById("history").value = firstNum + ' ' + arfunc;
         // do we need to change answer? mebbe
     } else if (secondNum != ''){
-        document.getElementById("history").value += ' '/*+arfunc+' '*/+secondNum + ' =';
-        document.getElementById("history").value = document.getElementById("history").value.replace('=',arfunc);
+        
+        //document.getElementById("history").value += ' '/*+arfunc+' '*/+secondNum + ' =';
+        //document.getElementById("history").value = document.getElementById("history").value.replace('=',arfunc);
         firstNum = calculate(firstNum,secondNum, arfunc);
         document.getElementById("answer").value = firstNum;
         secondNum = '';
-        arfunc = event.target.innerHTML; //either this line or below, not both
+        arfunc = event.target.innerHTML;
+         //either this line or below, not both
         //arfunc = '';
-    } else {
+    } /*else { //needs to occur when user repeatedly presses function button, but not when they have defined a second number.
         document.getElementById("history").value = document.getElementById("history").value.replace(arfunc,'');
         arfunc = event.target.innerHTML;
         document.getElementById("history").value +=arfunc;
-    }
+    }*/ 
 
 }    
 
@@ -82,10 +84,10 @@ function eqClick(){
         //do nothing, show nothing
         return;
     } else if (secondNum =='') {
-        document.getElementById("history").value = firstNum+' =';
+        //document.getElementById("history").value = firstNum+' =';
     } else { //should only be when first, second and arfunc are defined
     //document.getElementById("history").value = firstNum + ' ' + arfunc + ' '+ secondNum + '=';
-    document.getElementById("history").value += ' '+secondNum +' =';
+    //document.getElementById("history").value += ' '+secondNum +' =';
     firstNum = calculate(firstNum,secondNum, arfunc);
     document.getElementById("answer").value = firstNum;
     secondNum = '';
@@ -120,7 +122,7 @@ function allClearClick(){
     secondNum = '';
     arfunc = '';
     document.getElementById("answer").value = '';
-    document.getElementById("history").value = '';
+    //document.getElementById("history").value = '';
 
 }
 
