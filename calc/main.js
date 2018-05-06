@@ -33,8 +33,8 @@ function numClick() {
         document.getElementById("answer").value = firstNum;
     } else {
         secondNum += event.target.innerHTML;
-        document.getElementById("answer").value = firstNum +' '+arfunc+' '+secondNum;
-        document.getElementById('history').value += event.target.innerHTML;
+        document.getElementById("answer").value = /*firstNum +' '+arfunc+' '+*/secondNum;
+        //document.getElementById('history').value += event.target.innerHTML;
     }
 
 
@@ -53,15 +53,21 @@ function funcClick() {
 
     if (arfunc == ''){
         arfunc = event.target.innerHTML;
-        document.getElementById("answer").value = firstNum + ' ' + arfunc;
+        //document.getElementById("answer").value = firstNum + ' ' + arfunc;
         document.getElementById("history").value = firstNum + ' ' + arfunc;
-    } else {
-        document.getElementById("history").value += secondNum + '=';
+        // do we need to change answer? mebbe
+    } else if (secondNum != ''){
+        document.getElementById("history").value += ' '/*+arfunc+' '*/+secondNum + ' =';
+        document.getElementById("history").value = document.getElementById("history").value.replace('=',arfunc);
         firstNum = calculate(firstNum,secondNum, arfunc);
         document.getElementById("answer").value = firstNum;
         secondNum = '';
         arfunc = event.target.innerHTML; //either this line or below, not both
         //arfunc = '';
+    } else {
+        document.getElementById("history").value = document.getElementById("history").value.replace(arfunc,'');
+        arfunc = event.target.innerHTML;
+        document.getElementById("history").value +=arfunc;
     }
 
 }    
@@ -71,11 +77,20 @@ function addListenersToEquals() {
 }
 
 function eqClick(){
-    document.getElementById("history").value = firstNum + ' ' + arfunc + ' '+ secondNum + '=';
+
+    if (arfunc == '' && firstNum == ''){
+        //do nothing, show nothing
+        return;
+    } else if (secondNum =='') {
+        document.getElementById("history").value = firstNum+' =';
+    } else { //should only be when first, second and arfunc are defined
+    //document.getElementById("history").value = firstNum + ' ' + arfunc + ' '+ secondNum + '=';
+    document.getElementById("history").value += ' '+secondNum +' =';
     firstNum = calculate(firstNum,secondNum, arfunc);
     document.getElementById("answer").value = firstNum;
     secondNum = '';
     arfunc = '';
+    }
 }
 
 function calculate(firstNum,secondNum, arfunc){
