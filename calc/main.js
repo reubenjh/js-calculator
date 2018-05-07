@@ -24,83 +24,78 @@ function addListenersToNumbers() {
 }
 
 function numClick() {
-    if (arfunc == ''){
-        /*if (eqPressed){
-            firstNum = '';
-            firstNum += event.target.innerHTML;
-            document.getElementById("answer").value = firstNum;
-            eqPressed = false;
-        } else {
-            */
-
+    if (arfunc == '') {
+        // need an if statement here to handle that weird situation when clear is needed on history and for firstNum to refresh
         firstNum += event.target.innerHTML;
-        document.getElementById("answer").value = firstNum;
-    
+        document.getElementById("display").value = firstNum;
     } else {
         secondNum += event.target.innerHTML;
-        document.getElementById("answer").value = /*firstNum +' '+arfunc+' '+*/secondNum;
-        //document.getElementById('history').value += event.target.innerHTML;
+        document.getElementById("display").value = secondNum;
     }
-
-
 }
 
 function addListenersToFunctions() {
     let functions = document.getElementsByClassName("function");
-        console.log(functions);
     for (let i = 0; i < functions.length; i++) {
         functions[i].addEventListener("click", funcClick);
-        console.log("Adding to " + i)
     }
 }
 
 function funcClick() {
+    // Error handling people clicking an arfunc with no firstNum
+    if (firstNum == '') {
+        return;
+    }
 
-    if (arfunc == ''){
+    if (arfunc == '') {
         arfunc = event.target.innerHTML;
-        //document.getElementById("answer").value = firstNum + ' ' + arfunc;
-        //document.getElementById("history").value = firstNum + ' ' + arfunc;
-        // do we need to change answer? mebbe
-    } else if (secondNum != ''){
-        
-        //document.getElementById("history").value += ' '/*+arfunc+' '*/+secondNum + ' =';
-        //document.getElementById("history").value = document.getElementById("history").value.replace('=',arfunc);
-        firstNum = calculate(firstNum,secondNum, arfunc);
-        document.getElementById("answer").value = firstNum;
-        secondNum = '';
-        arfunc = event.target.innerHTML;
-         //either this line or below, not both
-        //arfunc = '';
-    } else { //needs to occur when user repeatedly presses function button, but not when they have defined a second number.
-        //document.getElementById("history").value = document.getElementById("history").value.replace(arfunc,'');
-        arfunc = event.target.innerHTML;
-        //document.getElementById("history").value +=arfunc;
-    } 
-
+        entries.push(firstNum)
+        entries.push(arfunc)
+        for (let i = 0; i < entries.length; i++) {
+            history += entries[i] + ''
+        }
+        document.getElementById("history").value = history;
+    }
+        // more options needed
 }    
 
 function addListenersToEquals() {
-    document.getElementsByClassName('equals')[0].addEventListener('click',eqClick);
+    document.getElementsByClassName('equals')[0].addEventListener('click', eqClick);
 }
 
-function eqClick(){
-    eqPressed = true;
-    if (arfunc == '' && firstNum == ''){
-        //do nothing, show nothing
+function eqClick() {
+    // Error handling people clicking equals with no firstNum
+    if (firstNum == '') {
         return;
-    } else if (secondNum =='') {
-        //document.getElementById("history").value = firstNum+' =';
-    } else { //should only be when first, second and arfunc are defined
-    //document.getElementById("history").value = firstNum + ' ' + arfunc + ' '+ secondNum + '=';
-    //document.getElementById("history").value += ' '+secondNum +' =';
-    firstNum = calculate(firstNum,secondNum, arfunc);
-    document.getElementById("answer").value = firstNum;
-    secondNum = '';
-    arfunc = '';
-    }
-}
 
-function calculate(firstNum,secondNum, arfunc){
+    // If no arfunc yet, print firstNum to history
+    } else if (arfunc == '' && secondNum == '') {
+        entries.push(firstNum)
+        for (let i = 0; i < entries.length; i++) {
+            history += entries[i] + ''
+        }
+        document.getElementById("history").value = history;
+        firstNum = '';
+    }
+
+    // Have firstNum and arfunc only
+    // will this error when people press equals again after doing the above?
+    else if (secondNum == '') {
+        entries.push(firstNum)
+        entries.push(arfunc)
+        for (let i = 0; i < entries.length; i++) {
+            history += entries[i] + ''
+        }
+        document.getElementById("history").value = history;
+
+    } else {
+        // do the calculation
+    }
+
+
+}
+// come back to this
+/* function calculate(firstNum,secondNum, arfunc){
     switch (arfunc) {
         case '+':
             return Number(firstNum)+Number(secondNum);
@@ -116,12 +111,15 @@ function calculate(firstNum,secondNum, arfunc){
             break;
     }
 }
+*/
 
 function addListenersToClears() {
-    document.getElementsByClassName('clear')[0].addEventListener('click', allClearClick);
-    document.getElementsByClassName('clear')[1].addEventListener('click', clearEntryClick);
+    document.getElementsByClassName('clear')[0].addEventListener('click', clearEntryClick);
+    document.getElementsByClassName('clear')[1].addEventListener('click', allClearClick);
 }
 
+// Come back to this
+/* 
 function allClearClick(){
     firstNum = '';
     secondNum = '';
@@ -131,30 +129,14 @@ function allClearClick(){
 
 }
 
-
 function clearEntryClick(){
     secondNum = '';
     document.getElementById("answer").value = '';
     //possibly clear arfunc?
 }
-
-
-
-
-
-/*
-function addEventListenersToNumbers() {
-    let numbers = document.getElementsByClassName("number");
-    console.log(numbers);
-    for (let i of numbers) {
-        i.addEventListener("click", numberClick);
-        console.log("adding a listener to" + i);
-    }
-}
-
-function numberClick() {
-    alert("you clicked");
-}
-
-addEventListenersToNumbers();
 */
+
+
+
+
+
