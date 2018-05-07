@@ -7,12 +7,13 @@
 
 <body>
     <div class="container">
-        <div class="calculator" id="calculator">
+        <div class="calculator eight columns offset-by-two" id="calculator">
             <div class="row answer-row">
                 <!-- <input type="text" disabled="disabled" class="twelve columns" id="history">-->
                 <input type="text" disabled="disabled" class="twelve columns" id="answer">
             </div>
-
+            
+            <hr>
             <div class="first row">
                 <a class="button four columns number">1</a>
                 <a class="button four columns number">2</a>
@@ -34,21 +35,21 @@
             </div>
 
             <div class="fourth row">
-                <a class="button four columns clear">AC</a>
-                <a class="button four columns clear">CE</a>
                 <a class="button four columns number">0</a>
+                <a class="button four columns number">.</a>
+                <a class="button four columns clear" id="clear1">CE</a>
             </div>
 
             <div class="fifth row">
-                <a class="button four columns function">+</a>
-                <a class="button four columns function">-</a>
-                <a class="button four columns function">X</a>
+                <a class="button four columns function" id="plus">+</a>
+                <a class="button four columns function" id="minus">-</a>
+                <a class="button four columns clear" id="clear2">AC</a>
             </div>
 
             <div class="sixth row">
-                <a class="button four columns function">/</a>
-                <a class="button four columns number">.</a>
-                <a class="button four columns equals">=</a>
+                <a class="button four columns function" id="divide">/</a>
+                <a class="button four columns function" id="multiply">X</a>
+                <a class="button four columns equals" id="equals">=</a>
             </div>
         </div>
     </div>
