@@ -1,17 +1,15 @@
-document.addEventListener('DOMContentLoaded', initCalc)
-/*
-    To dos:
-    - get history working correctly.
-    - add clear functionality
-    - pretty CSS styling
-    - secret hidden willem defoe boobies.
-*/
-let firstNum = '';
-let secondNum = '';
-let arfunc = '';
-let eqPressed = false;
+document.addEventListener('DOMContentLoaded', start)
 
-function initCalc() {
+// Variables
+let firstNum = ''
+let secondNum = ''
+let arfunc = ''
+let ans = ''
+let entries = []
+let history = ''
+let display = ''
+
+function start() {
     addListenersToNumbers();
     addListenersToFunctions();
     addListenersToClears();
@@ -20,26 +18,24 @@ function initCalc() {
 
 function addListenersToNumbers() {
     let numbers = document.getElementsByClassName("number");
-    console.log(numbers);
     for (let i = 0; i < numbers.length; i++) {
         numbers[i].addEventListener("click", numClick);
-        console.log("Adding to " + i)
     }
 }
 
 function numClick() {
-    
     if (arfunc == ''){
-        if (eqPressed){
+        /*if (eqPressed){
             firstNum = '';
             firstNum += event.target.innerHTML;
             document.getElementById("answer").value = firstNum;
             eqPressed = false;
         } else {
-            firstNum += event.target.innerHTML;
-            document.getElementById("answer").value = firstNum;
-        }
+            */
 
+        firstNum += event.target.innerHTML;
+        document.getElementById("answer").value = firstNum;
+    
     } else {
         secondNum += event.target.innerHTML;
         document.getElementById("answer").value = /*firstNum +' '+arfunc+' '+*/secondNum;
