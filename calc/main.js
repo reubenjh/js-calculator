@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', initCalc)
 let firstNum = '';
 let secondNum = '';
 let arfunc = '';
+let eqPressed = false;
 
 function initCalc() {
     addListenersToNumbers();
@@ -29,8 +30,16 @@ function addListenersToNumbers() {
 function numClick() {
     
     if (arfunc == ''){
-        firstNum += event.target.innerHTML;
-        document.getElementById("answer").value = firstNum;
+        if (eqPressed){
+            firstNum = '';
+            firstNum += event.target.innerHTML;
+            document.getElementById("answer").value = firstNum;
+            eqPressed = false;
+        } else {
+            firstNum += event.target.innerHTML;
+            document.getElementById("answer").value = firstNum;
+        }
+
     } else {
         secondNum += event.target.innerHTML;
         document.getElementById("answer").value = /*firstNum +' '+arfunc+' '+*/secondNum;
@@ -66,11 +75,11 @@ function funcClick() {
         arfunc = event.target.innerHTML;
          //either this line or below, not both
         //arfunc = '';
-    } /*else { //needs to occur when user repeatedly presses function button, but not when they have defined a second number.
-        document.getElementById("history").value = document.getElementById("history").value.replace(arfunc,'');
+    } else { //needs to occur when user repeatedly presses function button, but not when they have defined a second number.
+        //document.getElementById("history").value = document.getElementById("history").value.replace(arfunc,'');
         arfunc = event.target.innerHTML;
-        document.getElementById("history").value +=arfunc;
-    }*/ 
+        //document.getElementById("history").value +=arfunc;
+    } 
 
 }    
 
@@ -79,7 +88,7 @@ function addListenersToEquals() {
 }
 
 function eqClick(){
-
+    eqPressed = true;
     if (arfunc == '' && firstNum == ''){
         //do nothing, show nothing
         return;
