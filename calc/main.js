@@ -8,10 +8,6 @@ let ans = ''
 let entries = []
 let history = ''
 
-
-
-
-
 function start() {
     addListenersToNumbers();
     addListenersToFunctions();
@@ -35,19 +31,15 @@ function numClick() {
             ans = ''
             firstNum += event.target.innerHTML;
             document.getElementById("display").value = firstNum;
-        } else {
-/*********** cross this bridge when we come to it
-
-        if (ans != '') {
-            firstNum = ans
-            secondNum
-        } else 
-
-***********/
+        } 
+        
+        else {
         firstNum += event.target.innerHTML;
         document.getElementById("display").value = firstNum;
-        }
-    } else {
+        }   
+    } 
+    
+    else {
         secondNum += event.target.innerHTML;
         document.getElementById("display").value = secondNum;
     }
@@ -66,25 +58,26 @@ function funcClick() {
         return;
     }
 
+    // Chaining calculations & showing history after an equals
     else if (arfunc == '' && history != '' && ans != '') {
         firstNum = ans
         arfunc = event.target.innerHTML;
-        // Reset history
         history = ''
         entries = []
         entries.push(firstNum)
         entries.push(arfunc)
         setHist()
     }
-        
+
+    // Showing history
     else if (arfunc == '') {
         arfunc = event.target.innerHTML;
         entries.push(firstNum)
         entries.push(arfunc)
-        // Setting history
         setHist()
     }
 
+    // Chaining calculations & showing history without pressing equals
     else if (arfunc != '' && secondNum != '') {
         ans = String(calculate(firstNum, secondNum, arfunc))
         document.getElementById("display").value = ans
@@ -95,46 +88,34 @@ function funcClick() {
         firstNum = ans
         secondNum = ''
     }
+
+    // Switching which arfunc to use
+    else if (arfunc != '' && secondNum == '') {
+        arfunc = event.target.innerHTML;
+        entries[entries.length-1] = arfunc
+        setHist()
+    }
 }
 
 function addListenersToEquals() {
     document.getElementsByClassName('equals')[0].addEventListener('click', eqClick);
-    console.log('added listener to quals')
 }
 
 function eqClick() {
     // Error handling people clicking equals with no firstNum
     if (firstNum == '') {
         return;
-    }    
-/*************** Cross this bridge later...
-
-    // If no arfunc yet, print firstNum to history
-    } else if (arfunc == '' && secondNum == '') {
-        entries.push(firstNum)
-        for (let i = 0; i < entries.length; i++) {
-            history += entries[i] + ''
-        }
-        document.getElementById("history").value = history;
-        firstNum = '';
     }
-
-****************/
-
-/*************** Cross this bridge later...
-
-    // Have firstNum and arfunc only
-    // will this error when people press equals again after doing the above?
-    else if (firstNum != '' && arfunc != '' && secondNum == '') {
+    
+    // Error handling people clicking equals with no arfunc
+    else if (arfunc == '' && secondNum == '') {
+        ans = firstNum
+        document.getElementById("display").value = ans
         entries.push(firstNum)
-        entries.push(arfunc)
-        for (let i = 0; i < entries.length; i++) {
-            history += entries[i] + ''
-        }
-        document.getElementById("history").value = history;
+        setHist()
+        firstNum = ''
     }
-
-****************/
+    // Regular calculate
     else if (secondNum != '') {
         ans = String(calculate(firstNum, secondNum, arfunc))
         document.getElementById("display").value = ans
@@ -161,19 +142,6 @@ function setHist() {
     document.getElementById("history").value = history;
 }
 
-/************* Not working correctly, only clearing local scope since not using the global variable.
- 
-function clearVars (a, b, c, d, e, f) {
-    a = ''
-    b = ''
-    c = ''
-    d = ''
-    e = ''
-    f = ''
-}
-
-**************/
-
 function calculate(firstNum, secondNum, arfunc){
     switch (arfunc) {
         case '+':
@@ -198,9 +166,14 @@ function addListenersToClears() {
 }
 
 function clearEntryClick() {
-    // definitely needs work
-    secondNum = ''
-    document.getElementById("display").value = '';
+    if (secondNum == '') {
+        firstNum = ''
+        document.getElementById("display").value = '0';
+
+    } else {
+        secondNum = ''
+        document.getElementById("display").value = '0';
+    }
 }
 
 function allClearClick() {
@@ -210,8 +183,8 @@ function allClearClick() {
     history = ''
     ans = ''
     entries = []
-    document.getElementById("display").value = '';
-    document.getElementById("history").value = '';
+    document.getElementById("display").value = '0';
+    document.getElementById("history").value = '0';
 }
 
 
