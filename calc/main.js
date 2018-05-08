@@ -7,7 +7,10 @@ let arfunc = ''
 let ans = ''
 let entries = []
 let history = ''
-let display = ''
+
+
+
+
 
 function start() {
     addListenersToNumbers();
@@ -25,9 +28,17 @@ function addListenersToNumbers() {
 
 function numClick() {
     if (arfunc == '') {
-        // need an if statement here to handle that weird situation when clear is needed on history and for firstNum to refresh
+/*********** cross this bridge when we come to it
+
+        if (ans != '') {
+            firstNum = ans
+            secondNum
+        } else 
+
+***********/
         firstNum += event.target.innerHTML;
         document.getElementById("display").value = firstNum;
+         
     } else {
         secondNum += event.target.innerHTML;
         document.getElementById("display").value = secondNum;
@@ -51,22 +62,22 @@ function funcClick() {
         arfunc = event.target.innerHTML;
         entries.push(firstNum)
         entries.push(arfunc)
-        for (let i = 0; i < entries.length; i++) {
-            history += entries[i] + ''
-        }
-        document.getElementById("history").value = history;
+        // Setting history
+        setHist()
     }
-        // more options needed
-}    
+}
 
 function addListenersToEquals() {
     document.getElementsByClassName('equals')[0].addEventListener('click', eqClick);
+    console.log('added listener to quals')
 }
 
 function eqClick() {
     // Error handling people clicking equals with no firstNum
     if (firstNum == '') {
         return;
+    }    
+/*************** Cross this bridge later...
 
     // If no arfunc yet, print firstNum to history
     } else if (arfunc == '' && secondNum == '') {
@@ -78,24 +89,56 @@ function eqClick() {
         firstNum = '';
     }
 
+****************/
+
+/*************** Cross this bridge later...
+
     // Have firstNum and arfunc only
     // will this error when people press equals again after doing the above?
-    else if (secondNum == '') {
+    else if (firstNum != '' && arfunc != '' && secondNum == '') {
         entries.push(firstNum)
         entries.push(arfunc)
         for (let i = 0; i < entries.length; i++) {
             history += entries[i] + ''
         }
         document.getElementById("history").value = history;
-
-    } else {
-        // do the calculation
     }
 
-
+****************/
+    else if (secondNum != '') {
+        ans = calculate(firstNum, secondNum, arfunc)
+        document.getElementById("display").value = ans
+        entries.push(secondNum)
+        setHist()
+        clearVars(firstNum, secondNum, arfunc)
+    }
 }
-// come back to this
-/* function calculate(firstNum,secondNum, arfunc){
+
+
+
+
+
+
+
+function setHist() {
+    let newHist = ''
+    for (let i = 0; i < entries.length; i++) {
+        newHist += entries[i] + ' '
+    }
+    history = newHist
+    document.getElementById("history").value = history;
+}
+
+function clearVars (a, b, c, d, e, f) {
+    a = ''
+    b = ''
+    c = ''
+    d = ''
+    e = ''
+    f = ''
+}
+
+function calculate(firstNum, secondNum, arfunc){
     switch (arfunc) {
         case '+':
             return Number(firstNum)+Number(secondNum);
@@ -111,30 +154,27 @@ function eqClick() {
             break;
     }
 }
-*/
+
 
 function addListenersToClears() {
     document.getElementsByClassName('clear')[0].addEventListener('click', clearEntryClick);
     document.getElementsByClassName('clear')[1].addEventListener('click', allClearClick);
 }
 
-// Come back to this
-/* 
-function allClearClick(){
-    firstNum = '';
-    secondNum = '';
-    arfunc = '';
-    document.getElementById("answer").value = '';
-    //document.getElementById("history").value = '';
 
+function allClearClick() {
+    clearVars(firstNum, secondNum, arfunc, history, ans,)
+    entries = []
+    document.getElementById("display").value = '';
+    document.getElementById("history").value = '';
 }
 
-function clearEntryClick(){
-    secondNum = '';
-    document.getElementById("answer").value = '';
-    //possibly clear arfunc?
+function clearEntryClick() {
+    // definitely needs work
+    clearVars(secondNum)
+    document.getElementById("display").value = '';
 }
-*/
+
 
 
 
