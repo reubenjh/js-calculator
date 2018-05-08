@@ -24,8 +24,7 @@ function addListenersToNumbers() {
 
 function numClick() {
     if (arfunc == '') {
-        if (history != '') {
-            console.log(entries)
+        if (history != '') {s
             entries = []
             setHist()
             ans = ''
@@ -127,12 +126,6 @@ function eqClick() {
     }
 }
 
-
-
-
-
-
-
 function setHist() {
     let newHist = ''
     for (let i = 0; i < entries.length; i++) {
@@ -158,7 +151,6 @@ function calculate(firstNum, secondNum, arfunc){
             break;
     }
 }
-
 
 function addListenersToClears() {
     document.getElementsByClassName('clear')[0].addEventListener('click', clearEntryClick);
@@ -186,5 +178,3 @@ function allClearClick() {
     document.getElementById("display").value = '0';
     document.getElementById("history").value = '0';
 }
-
-
