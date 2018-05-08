@@ -28,6 +28,14 @@ function addListenersToNumbers() {
 
 function numClick() {
     if (arfunc == '') {
+        if (history != '') {
+            console.log(entries)
+            entries = []
+            setHist()
+            ans = ''
+            firstNum += event.target.innerHTML;
+            document.getElementById("display").value = firstNum;
+        } else {
 /*********** cross this bridge when we come to it
 
         if (ans != '') {
@@ -38,7 +46,7 @@ function numClick() {
 ***********/
         firstNum += event.target.innerHTML;
         document.getElementById("display").value = firstNum;
-         
+        }
     } else {
         secondNum += event.target.innerHTML;
         document.getElementById("display").value = secondNum;
@@ -54,16 +62,38 @@ function addListenersToFunctions() {
 
 function funcClick() {
     // Error handling people clicking an arfunc with no firstNum
-    if (firstNum == '') {
+    if (firstNum == '' && history == '') {
         return;
     }
 
-    if (arfunc == '') {
+    else if (arfunc == '' && history != '' && ans != '') {
+        firstNum = ans
+        arfunc = event.target.innerHTML;
+        // Reset history
+        history = ''
+        entries = []
+        entries.push(firstNum)
+        entries.push(arfunc)
+        setHist()
+    }
+        
+    else if (arfunc == '') {
         arfunc = event.target.innerHTML;
         entries.push(firstNum)
         entries.push(arfunc)
         // Setting history
         setHist()
+    }
+
+    else if (arfunc != '' && secondNum != '') {
+        ans = String(calculate(firstNum, secondNum, arfunc))
+        document.getElementById("display").value = ans
+        arfunc = event.target.innerHTML;
+        entries.push(secondNum)
+        entries.push(arfunc)
+        setHist()
+        firstNum = ans
+        secondNum = ''
     }
 }
 
@@ -106,11 +136,13 @@ function eqClick() {
 
 ****************/
     else if (secondNum != '') {
-        ans = calculate(firstNum, secondNum, arfunc)
+        ans = String(calculate(firstNum, secondNum, arfunc))
         document.getElementById("display").value = ans
         entries.push(secondNum)
         setHist()
-        clearVars(firstNum, secondNum, arfunc)
+        firstNum = ''
+        secondNum = ''
+        arfunc = ''
     }
 }
 
@@ -129,6 +161,8 @@ function setHist() {
     document.getElementById("history").value = history;
 }
 
+/************* Not working correctly, only clearing local scope since not using the global variable.
+ 
 function clearVars (a, b, c, d, e, f) {
     a = ''
     b = ''
@@ -138,6 +172,8 @@ function clearVars (a, b, c, d, e, f) {
     f = ''
 }
 
+**************/
+
 function calculate(firstNum, secondNum, arfunc){
     switch (arfunc) {
         case '+':
@@ -146,7 +182,7 @@ function calculate(firstNum, secondNum, arfunc){
         case '-':
             return Number(firstNum)-Number(secondNum);
             break;
-        case 'X':
+        case 'x':
             return Number(firstNum)*Number(secondNum);
             break;
         case '/':
@@ -161,22 +197,21 @@ function addListenersToClears() {
     document.getElementsByClassName('clear')[1].addEventListener('click', allClearClick);
 }
 
+function clearEntryClick() {
+    // definitely needs work
+    secondNum = ''
+    document.getElementById("display").value = '';
+}
 
 function allClearClick() {
-    clearVars(firstNum, secondNum, arfunc, history, ans,)
+    firstNum = ''
+    secondNum = ''
+    arfunc = ''
+    history = ''
+    ans = ''
     entries = []
     document.getElementById("display").value = '';
     document.getElementById("history").value = '';
 }
-
-function clearEntryClick() {
-    // definitely needs work
-    clearVars(secondNum)
-    document.getElementById("display").value = '';
-}
-
-
-
-
 
 
