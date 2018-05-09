@@ -12,7 +12,7 @@ function initCalc() {
     addListenersToEquals();
 }
 
-function addListenersToNumbers() { // Function is already compact.
+function addListenersToNumbers() { 
     let numbers = document.getElementsByClassName("number");
     
     for (let i = 0; i < numbers.length; i++) {
@@ -20,13 +20,19 @@ function addListenersToNumbers() { // Function is already compact.
     }
 }
 
+function setFirstNum(newNum){
+    firstNum = newNum;
+    document.getElementById("answer").value = firstNum;
+}
+
+
+
 function numClick() {
     
     if (arfunc == ''){
         if (eqPressed){
-            firstNum = event.target.innerHTML; 
+            setFirstNum(event.target.innerHTML); 
             //Because equals has been pressed, this is a case where we want to start a new calculation, not append a number to an existing number. 
-            document.getElementById("answer").value = firstNum;
             eqPressed = false;
         } else {
             firstNum += event.target.innerHTML;
@@ -35,7 +41,7 @@ function numClick() {
 
     } else {
         secondNum += event.target.innerHTML;
-        document.getElementById("answer").value = /*firstNum +' '+arfunc+' '+*/secondNum;
+        document.getElementById("answer").value = secondNum;
     }
 
 
@@ -51,8 +57,7 @@ function addListenersToFunctions() {
 function funcClick() {
 
     if (secondNum != ''){
-        firstNum = calculate(firstNum,secondNum, arfunc);
-        document.getElementById("answer").value = firstNum;
+        setFirstNum(calculate(firstNum,secondNum, arfunc));
         secondNum = '';
     } 
     
@@ -67,8 +72,7 @@ function addListenersToEquals() {
 function eqClick(){
     eqPressed = true;
     if (arfunc != '' && firstNum != '' && secondNum != ''){
-        firstNum = calculate(firstNum,secondNum, arfunc);
-        document.getElementById("answer").value = firstNum;
+        setFirstNum(calculate(firstNum,secondNum, arfunc));
         secondNum = '';
         arfunc = '';
     }
@@ -97,10 +101,10 @@ function addListenersToClears() {
 }
 
 function allClearClick(){
-    firstNum = '';
+    setFirstNum('');
     secondNum = '';
     arfunc = '';
-    document.getElementById("answer").value = '';
+    
 }
 
 
