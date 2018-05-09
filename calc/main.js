@@ -50,16 +50,14 @@ function addListenersToFunctions() {
 
 function funcClick() {
 
-    if (arfunc == ''){
-        arfunc = event.target.innerHTML;
-    } else if (secondNum != ''){
+    if (secondNum != ''){
         firstNum = calculate(firstNum,secondNum, arfunc);
         document.getElementById("answer").value = firstNum;
         secondNum = '';
-        arfunc = event.target.innerHTML;
-    } else { //needs to occur when user repeatedly presses function button, but not when they have defined a second number.
-        arfunc = event.target.innerHTML;
     } 
+    
+    arfunc = event.target.innerHTML;
+     
 }    
 
 function addListenersToEquals() {
